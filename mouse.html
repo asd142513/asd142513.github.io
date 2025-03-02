@@ -1,24 +1,24 @@
 <html>
 
 <body onmousedown="mouseDown();" onmouseup="mouseUp();">
-	<textarea id="box" readonly rows="24" cols="80" placeholder="unit: ms(milisecond)"></textarea>
+  <textarea id="box" readonly rows="24" cols="80" placeholder="unit: ms(milisecond)"></textarea>
 </body>
 
 <script type="text/javascript">
-	var box = document.getElementById('box');
-	var last = Date.now();
-	function mouseDown() {
-		cur = Date.now();
-		var s = 'press\t' + (cur - last) + '\n';
-		box.value = s + box.value;
-		last = cur;
-	}
-	function mouseUp() {
-		cur = Date.now();
-		var s = 'release\t' + (cur - last) + '\n';
-		box.value = s + box.value;
-		last = cur;
-	}
+  var box = document.getElementById('box');
+  var last = Date.now();
+  function mouseDown() {
+    cur = Date.now();
+    var s = 'press\t' + (cur - last) + '\n';
+    box.value = s + box.value;
+    last = cur;
+  }
+  function mouseUp() {
+    cur = Date.now();
+    var s = 'release\t' + (cur - last) + '\n';
+    box.value = s + box.value;
+    last = cur;
+  }
 </script>
 
 </html>

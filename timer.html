@@ -1,34 +1,33 @@
 <html>
 
 <body>
-  <input id="input" placeholder="unit: sec"></input>
+  <input id="interval" placeholder="unit: sec"></input>
   <button onclick="startTimer()">start</button>
   <button onclick="((() => clearInterval(timer))())">stop</button>
 </body>
 
 <script type="text/javascript">
-  var timer;
+  let timer;
 
-  var context = new AudioContext();
-  var oscillator = context.createOscillator();
+  let context = new AudioContext();
+  let oscillator = context.createOscillator();
   oscillator.start();
 
   function startTimer() {
-    var interval = parseInt(document.getElementById("input").value);
-    console.log(interval);
+    let interval = parseInt(document.getElementById("interval").value);
+
     if (!Number.isInteger(interval))
       return;
     if (interval < 1)
       interval = 1;
+
     clearInterval(timer);
     timer = setInterval(playAlarm, interval * 1000)
   }
 
   function playAlarm() {
     oscillator.connect(context.destination);
-    setTimeout(function () {
-      oscillator.disconnect(context.destination);
-    }, 100);
+    setTimeout(() => oscillator.disconnect(context.destination), 100);
   }
 </script>
 

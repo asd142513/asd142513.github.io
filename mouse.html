@@ -1,21 +1,16 @@
 <html>
 
-<body onmousedown="mouseDown();" onmouseup="mouseUp();">
-  <textarea id="box" readonly rows="24" cols="80" placeholder="unit: ms(milisecond)"></textarea>
+<body onmousedown="mouseEvent('press')" onmouseup="mouseEvent('release')">
+  <textarea id="box" readonly cols="80" rows="24" placeholder="unit: ms"></textarea>
 </body>
 
 <script type="text/javascript">
-  var box = document.getElementById('box');
-  var last = Date.now();
-  function mouseDown() {
+  let box = document.getElementById('box');
+  let last = Date.now();
+
+  function mouseEvent(name) {
     cur = Date.now();
-    var s = 'press\t' + (cur - last) + '\n';
-    box.value = s + box.value;
-    last = cur;
-  }
-  function mouseUp() {
-    cur = Date.now();
-    var s = 'release\t' + (cur - last) + '\n';
+    let s = name + '\t' + (cur - last) + '\n';
     box.value = s + box.value;
     last = cur;
   }

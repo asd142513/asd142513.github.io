@@ -3,18 +3,23 @@
 <body>
   <input id="interval" placeholder="unit: sec"></input>
   <button onclick="startTimer()">start</button>
-  <button onclick="((() => clearInterval(timer))())">stop</button>
+  <button onclick="stopTimer()">stop</button>
+  <p id="counter"></p>
 </body>
 
 <script type="text/javascript">
   let timer;
+  let counter;
+
+  let interval;
+  let timing;
 
   let context = new AudioContext();
   let oscillator = context.createOscillator();
   oscillator.start();
 
   function startTimer() {
-    let interval = parseInt(document.getElementById("interval").value);
+    interval = parseInt(document.getElementById("interval").value) * 1000;
 
     if (!Number.isInteger(interval))
       return;
@@ -22,12 +27,28 @@
       interval = 1;
 
     clearInterval(timer);
-    timer = setInterval(playAlarm, interval * 1000)
+    clearInterval(counter);
+
+    timing = Date.now() + interval;
+
+    timer = setInterval(playAlarm, interval);
+    counter = setInterval(updateCounter, 1000);
+  }
+
+  function stopTimer() {
+    clearInterval(counter);
+    clearInterval(timer);
+    document.getElementById("counter").innerText = "";
   }
 
   function playAlarm() {
     oscillator.connect(context.destination);
     setTimeout(() => oscillator.disconnect(context.destination), 100);
+    timing = Date.now() + interval;
+  }
+
+  function updateCounter() {
+    document.getElementById("counter").innerText = Math.abs(Math.round((timing - Date.now()) / 1000));
   }
 </script>
 

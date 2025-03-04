@@ -11,8 +11,6 @@
 
   var context = new AudioContext();
   var oscillator = context.createOscillator();
-  oscillator.type = "sine";
-  oscillator.frequency.value = 440;
   oscillator.start();
 
   function startTimer() {
